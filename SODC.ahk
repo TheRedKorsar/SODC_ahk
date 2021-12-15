@@ -25,6 +25,9 @@ mode    := 0
 ; Mode 1 - both keys make neutral
 ; Mode 2 - last key win but realise make person neutral
 
+l_vk    := Format("vk{:x}", GetKeyVK(l_hotkey))
+r_vk    := Format("vk{:x}", GetKeyVK(r_hotkey))
+
 hotkey % "a", l_down, on, UseErrorLevel 
 hotkey % "a  up", l_up, on, UseErrorLevel
 hotkey % "d", r_down, on, UseErrorLevel 
@@ -39,6 +42,7 @@ levent:
         l_hotkey := lhk
         hotkey % l_hotkey, l_down, on, UseErrorLevel 
         hotkey % l_hotkey " up", l_up, on, UseErrorLevel
+        l_vk := Format("vk{:x}", GetKeyVK(l_hotkey))
     }
 return
 revent:
@@ -50,6 +54,7 @@ revent:
         r_hotkey := rhk
         hotkey % r_hotkey, r_down, on, UseErrorLevel 
         hotkey % r_hotkey " up", r_up, on, UseErrorLevel
+        r_vk := Format("vk{:x}", GetKeyVK(r_hotkey))
     }
 return
 
@@ -73,26 +78,28 @@ l_down(){
     global mode
     global l_hotkey
     global r_hotkey
+    global l_vk
+    global r_vk
     left_k  := 1
     if (mode == 0){
         if (right_k == 1){
-            SendInput, {Blind}{%r_hotkey% up}{Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
         }else{
-            SendInput, {Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%l_vk% down}
         }
     }
     if (mode == 1){
         if (right_k == 1){
-            SendInput, {Blind}{%r_hotkey% up}
+            SendInput, {Blind}{%r_vk% up}
         }else{
-            SendInput, {Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%l_vk% down}
         }
     }
     if (mode == 2){
         if (right_k == 1){
-            SendInput, {Blind}{%r_hotkey% up}{Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
         }else{
-            SendInput, {Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%l_vk% down}
         }
     }
 }
@@ -103,23 +110,25 @@ l_up(){
     global mode
     global l_hotkey
     global r_hotkey
+    global l_vk
+    global r_vk
     left_k  := 0
     if (mode == 0){
         if (right_k == 1){
-            SendInput, {Blind}{%l_hotkey% up}{Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
         }else{
-            SendInput, {Blind}{%l_hotkey% up}
+            SendInput, {Blind}{%l_vk% up}
         }
     }
     if (mode == 1){
         if (right_k == 1){
-            SendInput, {Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%r_vk% down}
         }else{
-            SendInput, {Blind}{%l_hotkey% up}
+            SendInput, {Blind}{%l_vk% up}
         }
     }
     if (mode == 2){
-        SendInput, {Blind}{%l_hotkey% up}
+        SendInput, {Blind}{%l_vk% up}
     }
 }
 
@@ -129,26 +138,28 @@ r_down(){
     global mode
     global l_hotkey
     global r_hotkey
+    global l_vk
+    global r_vk
     right_k  := 1
     if (mode == 0){
         if (left_k == 1){
-            SendInput, {Blind}{%l_hotkey% up}{Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
         }else{
-            SendInput, {Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%r_vk% down}
         }
     }
     if (mode == 1){
         if (left_k == 1){
-            SendInput, {Blind}{%l_hotkey% up}
+            SendInput, {Blind}{%l_vk% up}
         }else{
-            SendInput, {Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%r_vk% down}
         }
     }
     if (mode == 2){
         if (left_k == 1){
-            SendInput, {Blind}{%l_hotkey% up}{Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
         }else{
-            SendInput, {Blind}{%r_hotkey% down}
+            SendInput, {Blind}{%r_vk% down}
         }
     }
 }
@@ -159,23 +170,25 @@ r_up(){
     global mode
     global l_hotkey
     global r_hotkey
+    global l_vk
+    global r_vk
     right_k  := 0
     if (mode == 0){
         if (left_k == 1){
-            SendInput, {Blind}{%r_hotkey% up}{Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
         }else{
-            SendInput, {Blind}{%r_hotkey% up}
+            SendInput, {Blind}{%r_vk% up}
         }
     }
     if (mode == 1){
         if (left_k == 1){
-            SendInput, {Blind}{%l_hotkey% down}
+            SendInput, {Blind}{%l_vk% down}
         }else{
-            SendInput, {Blind}{%r_hotkey% up}
+            SendInput, {Blind}{%r_vk% up}
         }
     }
     if (mode == 2){
-        SendInput, {Blind}{%r_hotkey% up}
+        SendInput, {Blind}{%r_vk% up}
     }
 }
 
