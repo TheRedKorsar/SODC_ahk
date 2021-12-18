@@ -1,8 +1,19 @@
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#NoEnv
+#MaxHotkeysPerInterval 99000000
+#HotkeyInterval 99000000
+#KeyHistory 0
+ListLines Off
+Process, Priority, , A
+SetBatchLines, -1
 SetKeyDelay, -1, -1
+SetMouseDelay, -1
+SetDefaultMouseSpeed, 0
+SetWinDelay, -1
+SetControlDelay, -1
+SendMode Input
+critical on
+Thread, Interrupt, .00005, 2
+
 Gui, -0x30000
 Gui, Add, Text, x2 y9 w80 h20 +Right, Left KEY:
 Gui, Add, Text, x2 y29 w80 h20 +Right, Right KEY:
@@ -10,7 +21,9 @@ Gui, Add, Hotkey, x82 y9 w70 h20 glevent vlhk, A
 Gui, Add, Hotkey, x82 y29 w70 h20 grevent vrhk, D
 Gui, Add, DropDownList, x2 y49 w150 h60 gChangeMode vModeSelect, Mode 0||Mode 1|Mode 2
 Gui, Add, Button, x2 y69 w150 h20 gModesInfo, Modes Info
-Gui, Show, h96 w158, Settings
+Gui, Add, Button, x2 y89 w150 h20 gHideGui, Hide window
+Gui, Show, h116 w158, Settings
+
 
 Menu, Tray, Add ; separator
 Menu, Tray, Add, Setting, goSettings 
@@ -33,6 +46,13 @@ hotkey % "a  up", l_up, on, UseErrorLevel
 hotkey % "d", r_down, on, UseErrorLevel 
 hotkey % "d  up", r_up, on, UseErrorLevel
 
+
+return
+HideGui:
+    Gui, Hide
+return
+GuiClose:
+    ExitApp, 0
 levent:
     ; MsgBox, l changed to %lhk%
     Gui, Submit, NoHide
@@ -59,7 +79,7 @@ revent:
 return
 
 goSettings:
-    Gui, Show, h96 w158, Settings
+    Gui, Show, h116 w158, Settings
 return
 
 ChangeMode:
@@ -83,7 +103,8 @@ l_down(){
     left_k  := 1
     if (mode == 0){
         if (right_k == 1){
-            SendInput, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
+            SendInput, {Blind}{%r_vk% up}
+            SendInput, {Blind}{%l_vk% down}
         }else{
             SendInput, {Blind}{%l_vk% down}
         }
@@ -115,7 +136,8 @@ l_up(){
     left_k  := 0
     if (mode == 0){
         if (right_k == 1){
-            SendInput, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
+            SendInput, {Blind}{%l_vk% up}
+            SendInput, {Blind}{%r_vk% down}
         }else{
             SendInput, {Blind}{%l_vk% up}
         }
@@ -143,7 +165,8 @@ r_down(){
     right_k  := 1
     if (mode == 0){
         if (left_k == 1){
-            SendInput, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
+            SendInput, {Blind}{%l_vk% up}
+            SendInput, {Blind}{%r_vk% down}
         }else{
             SendInput, {Blind}{%r_vk% down}
         }
@@ -175,7 +198,8 @@ r_up(){
     right_k  := 0
     if (mode == 0){
         if (left_k == 1){
-            SendInput, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
+            SendInput, {Blind}{%r_vk% up}
+            SendInput, {Blind}{%l_vk% down}
         }else{
             SendInput, {Blind}{%r_vk% up}
         }
