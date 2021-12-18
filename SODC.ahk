@@ -2,6 +2,7 @@
 #MaxHotkeysPerInterval 99000000
 #HotkeyInterval 99000000
 #KeyHistory 0
+; #InstallKeybdHook
 ListLines Off
 Process, Priority, , A
 SetBatchLines, -1
@@ -100,27 +101,29 @@ l_down(){
     global r_hotkey
     global l_vk
     global r_vk
-    left_k  := 1
-    if (mode == 0){
-        if (right_k == 1){
-            SendInput, {Blind}{%r_vk% up}
-            SendInput, {Blind}{%l_vk% down}
-        }else{
-            SendInput, {Blind}{%l_vk% down}
+    if (left_k == 0){
+        left_k  := 1
+        if (mode == 0){
+            if (right_k == 1){
+                SendEvent, {Blind}{%r_vk% up}
+                SendEvent, {Blind}{%l_vk% down}
+            }else{
+                SendEvent, {Blind}{%l_vk% down}
+            }
         }
-    }
-    if (mode == 1){
-        if (right_k == 1){
-            SendInput, {Blind}{%r_vk% up}
-        }else{
-            SendInput, {Blind}{%l_vk% down}
+        if (mode == 1){
+            if (right_k == 1){
+                SendEvent, {Blind}{%r_vk% up}
+            }else{
+                SendEvent, {Blind}{%l_vk% down}
+            }
         }
-    }
-    if (mode == 2){
-        if (right_k == 1){
-            SendInput, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
-        }else{
-            SendInput, {Blind}{%l_vk% down}
+        if (mode == 2){
+            if (right_k == 1){
+                SendEvent, {Blind}{%r_vk% up}{Blind}{%l_vk% down}
+            }else{
+                SendEvent, {Blind}{%l_vk% down}
+            }
         }
     }
 }
@@ -136,21 +139,21 @@ l_up(){
     left_k  := 0
     if (mode == 0){
         if (right_k == 1){
-            SendInput, {Blind}{%l_vk% up}
-            SendInput, {Blind}{%r_vk% down}
+            SendEvent, {Blind}{%l_vk% up}
+            SendEvent, {Blind}{%r_vk% down}
         }else{
-            SendInput, {Blind}{%l_vk% up}
+            SendEvent, {Blind}{%l_vk% up}
         }
     }
     if (mode == 1){
         if (right_k == 1){
-            SendInput, {Blind}{%r_vk% down}
+            SendEvent, {Blind}{%r_vk% down}
         }else{
-            SendInput, {Blind}{%l_vk% up}
+            SendEvent, {Blind}{%l_vk% up}
         }
     }
     if (mode == 2){
-        SendInput, {Blind}{%l_vk% up}
+        SendEvent, {Blind}{%l_vk% up}
     }
 }
 
@@ -162,27 +165,29 @@ r_down(){
     global r_hotkey
     global l_vk
     global r_vk
-    right_k  := 1
-    if (mode == 0){
-        if (left_k == 1){
-            SendInput, {Blind}{%l_vk% up}
-            SendInput, {Blind}{%r_vk% down}
-        }else{
-            SendInput, {Blind}{%r_vk% down}
+    if (right_k == 0){
+        right_k  := 1
+        if (mode == 0){
+            if (left_k == 1){
+                SendEvent, {Blind}{%l_vk% up}
+                SendEvent, {Blind}{%r_vk% down}
+            }else{
+                SendEvent, {Blind}{%r_vk% down}
+            }
         }
-    }
-    if (mode == 1){
-        if (left_k == 1){
-            SendInput, {Blind}{%l_vk% up}
-        }else{
-            SendInput, {Blind}{%r_vk% down}
+        if (mode == 1){
+            if (left_k == 1){
+                SendEvent, {Blind}{%l_vk% up}
+            }else{
+                SendEvent, {Blind}{%r_vk% down}
+            }
         }
-    }
-    if (mode == 2){
-        if (left_k == 1){
-            SendInput, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
-        }else{
-            SendInput, {Blind}{%r_vk% down}
+        if (mode == 2){
+            if (left_k == 1){
+                SendEvent, {Blind}{%l_vk% up}{Blind}{%r_vk% down}
+            }else{
+                SendEvent, {Blind}{%r_vk% down}
+            }
         }
     }
 }
@@ -198,21 +203,21 @@ r_up(){
     right_k  := 0
     if (mode == 0){
         if (left_k == 1){
-            SendInput, {Blind}{%r_vk% up}
-            SendInput, {Blind}{%l_vk% down}
+            SendEvent, {Blind}{%r_vk% up}
+            SendEvent, {Blind}{%l_vk% down}
         }else{
-            SendInput, {Blind}{%r_vk% up}
+            SendEvent, {Blind}{%r_vk% up}
         }
     }
     if (mode == 1){
         if (left_k == 1){
-            SendInput, {Blind}{%l_vk% down}
+            SendEvent, {Blind}{%l_vk% down}
         }else{
-            SendInput, {Blind}{%r_vk% up}
+            SendEvent, {Blind}{%r_vk% up}
         }
     }
     if (mode == 2){
-        SendInput, {Blind}{%r_vk% up}
+        SendEvent, {Blind}{%r_vk% up}
     }
 }
 
